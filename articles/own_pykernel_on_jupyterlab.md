@@ -3,7 +3,7 @@ title: "よそのJupyterLabで自分用のpythonカーネルを使う"
 emoji: "🗂"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [python, JupyterLab, jupyter, ipython]
-published: false
+published: true
 ---
 スーパーユーザでないサーバの `JupyterLab` で，Notebook（`.ipynb`）を開くと普通はシステム側で定義したカーネル（Python環境であるpython kernel）が利用される．
 
