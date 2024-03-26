@@ -1,4 +1,4 @@
-title: "日記"
+title: "八年日記 [2024年〜]"
 summary: "日記です．"
 topics:
   - "zenn"
@@ -8,4 +8,4 @@ published: true
 price: 0 # 有料の場合200〜5000
 # 本に含めるチャプターを順番に並べましょう
 chapters:
-  - "20201204"
+  - "202401"
