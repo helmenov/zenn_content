@@ -5,7 +5,8 @@ topics:
   - "markdown"
   - "diary"
 published: true
-price: 0 # 有料の場合200〜5000
+price: 5000 # 有料の場合200〜5000
 # 本に含めるチャプターを順番に並べましょう
 chapters:
-  - "202401"
+  - "2024_02"
+  - "2024_01"
