@@ -109,7 +109,7 @@ $ source pkg1/bin/activate
 ```{sh}
 $ poetry new pkg1
 $ cd pkg1
-$ poetry env use python # この時点の`python`を仮想環境作成に利用
+$ poetry env use ~/.local_python/bin/python # どのpythonを使うか
 $ poetry add foo
 $ poetry install --sync
 $ poetry version major/minor/patch
@@ -142,7 +142,7 @@ $ export PATH="~/.local/venv_app/bin:$PATH"
 venvを生で使うより，扱いやすい．
 
 ```{sh}
-$ pipx install app --python python
+$ pipx install app --python ~/.local_python/bin/python # どのpythonを使うか
 $ pipx ensurepath
 ```
 
