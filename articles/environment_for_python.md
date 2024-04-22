@@ -22,7 +22,7 @@ published: true
 `pip`は，`--user`をつければよい．ホームに`site-packages`が用意され，以降，`python`はホームの`site-packages`，システムの`site-packages`のどちらも探索する．
 
 ```{sh}
-pip install --user foo
+$ pip install --user foo
 ```
 
 `foo`を入れようとすると，依存関係で芋づる式に`bar`と`hoge`も入れようとする．
@@ -50,8 +50,9 @@ pip install --user foo
 - ホームの`site-packages`$_{u}$ : `python`$_{u}$ の探索範囲
 
 ```{sh}
-python -m venv ~/.local_python # このpythonはシステムのもの（venvも）
-export PATH="~/.local_python/bin:$PATH" # 以降，pythonはホームのもの
+$ python -m venv ~/.local_python # このpythonはシステムのもの（venvも）
+$ cat 'export PATH="~/.local_python/bin:$PATH"' >> ~/.zshrc # 以降，pythonはホームのもの
+$ source ~/.zshrc
 ```
 
 #### case2. `pyenv`や`mise`などで新たな環境
@@ -60,9 +61,21 @@ export PATH="~/.local_python/bin:$PATH" # 以降，pythonはホームのもの
 - ホームの`site-packages`$_{u}$ : `python`$_{u}$ の探索範囲
 
 ```{sh}
-mise install python@latest
-mise use -g python@latest
+$ mise install python@latest # @以下はバージョン
+$ mise use -g python@latest
 ```
+
+#### ちなみに，
+
+ちなみに，`@system` というバージョンは特別であり，`python`$_{u}$として，「環境変数PATHによって見つけた`python`」を設定する．
+
+これは，`system`ではあるが，**必ずしもシステム側の`python`$_{s}$ではない．**
+あくまで「PATHで設定されたpython」，つまりは，case1のように仮想環境にpythonを作って，そのpythonがPATHから見つかるように設定されていれば，`@system`は仮想環境のpythonを指す．
+
+（PATHから`python`を見つけることができないならば，`@system`は何も見つけられない．設定はできるが，実際に`python`コマンドを起動しても
+`mise No version is set for shim`となるだけ．）
+
+単なる`python`コマンドがどのPythonなのかを管理するのはとても大切である．
 
 ## 2. `python`$_{dev}$のすゝめ：開発環境は，それぞれ自己完結に（他の誰にも依存しない）
 
@@ -79,26 +92,27 @@ mise use -g python@latest
 
 ### [recommended] `(pkg1) python -m pip install foo`
 
-先と同様に，ホームの`python`$_u$を使うのではなく，`python`$_{pkg1}$を使うとよい．
+先と同様に，ホームの`python`$_u$やシステムの`python`$_s$を使うのではなく，`python`$_{pkg1}$を使うとよい．
 
-#### case3. `python`$_{u}$ で作る仮想環境
+#### case3. `python`$_{u}$または`python`$_{s}$ で作る仮想環境
 
 ```{sh}
-$ python -m venv pkg1 # このpythonはホームのもの
+$ python -m venv pkg1 # このpythonはホームまたはシステムのもの
 $ source pkg1/bin/activate
 (pkg1) $ python -m pip install foo
 ```
 
 #### case4. `poetry`や`rye`などを使う
 
-case3よりパッケージ開発に向いている
+結局case3と同じように仮想環境を作るのだけれども，case3よりパッケージ開発に向いている．
 
 ```{sh}
-poetry new pkg1
-cd pkg1
-poetry add foo
-poetry install --sync
-poetry version major/minor/patch
+$ poetry new pkg1
+$ cd pkg1
+$ poetry env use python # この時点の`python`を仮想環境作成に利用
+$ poetry add foo
+$ poetry install --sync
+$ poetry version major/minor/patch
 ```
 
 ## 3.`python`$_{app}$のすゝめ：`pip install app`で入れるアプリ
@@ -118,9 +132,9 @@ poetry version major/minor/patch
 先と同様．
 
 ```{sh}
-python -m venv ~/.local/venv_app # このpythonは，システムだったりホームだったり
-~/.local/venv_app/bin/python -m pip install app
-export PATH="~/.local/venv_app/bin:$PATH"
+$ python -m venv ~/.local/venv_app # このpythonは，システムだったりホームだったり
+$ ~/.local/venv_app/bin/python -m pip install app
+$ export PATH="~/.local/venv_app/bin:$PATH"
 ```
 
 #### case6. `pipx`を使う
@@ -128,8 +142,8 @@ export PATH="~/.local/venv_app/bin:$PATH"
 venvを生で使うより，扱いやすい．
 
 ```{sh}
-pipx install app
-pipx ensurepath
+$ pipx install app --python python
+$ pipx ensurepath
 ```
 
 ちなみに，`pipx`自体も`pip install`型．`pipx`は`venv`で入れるのがいいかもね．
@@ -141,5 +155,7 @@ pipx ensurepath
   - 普段使い：`pyenv`, `mise`
   - 開発：`poetry`, `rye`
   - アプリインストール：`pipx`
+- 呼び出す`python`，`site-packages`がどれなのか意識する．
+
 
 [PEP668]:https://peps.python.org/pep-0668/
