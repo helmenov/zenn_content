@@ -3,7 +3,7 @@ title: "リレーショナル・データベースの正規化 (normalize rdb)"
 subtitle: "そして整然化 (and make it tidy)"
 emoji: "😎"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [relational, rdb, normalize, tidy, table, Codd, Boyce, 1NF, 2NF, 3NF, 4NF, 5NF, BCNF, pivot, melt]
+topics: [relational, rdb, normalize, tidy, table, 第1正規形, 第2正規形, 第3正規形, 第4正規形, 第5正規形, ボイス・コッド正規形, pivot, melt]
 published: false
 ---
 ## データフレーム (dataframe)
