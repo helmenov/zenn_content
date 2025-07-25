@@ -3,7 +3,7 @@ title: "リレーショナル・データベースの正規化 (normalize rdb)"
 subtitle: "そして整然化 (and make it tidy)"
 emoji: "😎"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [relational-database, rdb, normal-forms, NFs, tidy, table]
+topics: [relational_database, rdb, normal_form, tidy, table, RDBの正規化]
 published: false
 ---
 ## データフレーム (dataframe)
@@ -52,12 +52,16 @@ Entity には，valiable (属性) が結ばれる．valiable は ○ で表す�
             - 特に $R_i$ の矢元が別の $R_j$ の矢元の *属性集合のうちの1つ* であるとき，その $R_i$ を「部分関数従属」という
         - 推移的-関数従属
             - $R_i$ の矢元が $R_j$ の矢先になっているとき，$R_i$ を「推移的関数従属」という
+            - 所謂「マルチコ」（多重共線性， Multicollinearity）
         - 完全-関数従属
             - いかなる包含関係，関係の重複がない状態
         - 多値-関数従属
             - $R_i$ の矢元 $E_a$ が別の $R_j$ の矢元 $E_a$ と同一であるとき，その $R_i$ を「多値関数従属」という．
 
-完全関数従属の状態の関係 $R$ において，矢元を独立属性（独立変数），矢先を従属属性（従属変数）という．（あれ，本当か？）
+完全関数従属の状態の関係 $R$ において，矢元を独立属性（独立変数），矢先を従属属性（従属変数）という．
+
+各表は，1つの関数従属を表すことになる．矢元が「主キー」．集合である場合は「複合主キー」である．いずれの場合も1つの表は1つの関数従属関係であり矢元が1つ，すなわち主キーは1つ．
+
 
 ### 第2正規化 部分関数従属の解消
 
